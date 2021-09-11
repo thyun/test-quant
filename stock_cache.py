@@ -77,7 +77,8 @@ def get_stock_data(code, start_time, end_time, use_fdr=False):
                 stock_data = pdr.data.get_data_yahoo(code, start_time, end_time)
                 stock_data.to_json(path, orient = 'split', compression = 'infer', index = 'true')
             except KeyError:
-                print("KeyError", code)
+                print("get_stock_data(): KeyError code=", code)
+                stock_data.to_json(path, orient = 'split', compression = 'infer', index = 'true')
                 pass
     return stock_data
 
