@@ -36,7 +36,7 @@ def get_stock_listing_dict(count, exclude_code_list=[]):
     for idx, row in stock_listing_100.iterrows():
         code = row['Symbol'] + ".KS"
         if (code not in exclude_code_list):
-            stock_listing_dict[code] = { "code": code, "stock_name": row['Name']}
+            stock_listing_dict[code] = { "code": code, "stock_name": row['Name'], "data": pd.DataFrame() }
     return stock_listing_dict
 
 # TODO memory cache?
