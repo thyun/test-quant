@@ -56,8 +56,8 @@ def get_stock_name(code):
 # cache 사용하여 종목 데이터 가져오기
 def get_stock_data(code, start_time, end_time, use_fdr=False):
     # 무조건 1년 단위로 자름
-    start_time = datetime.datetime(start_time.year, 1, 1)
-    end_time = datetime.datetime(start_time.year, 12, 31)
+    start_time = datetime.datetime(start_time.year, 1, 1, 9, 0, 0)
+    end_time = datetime.datetime(start_time.year, 12, 31, 9, 0, 0)
     #print("get_stock_data():", "start_time=", start_time, "end_time=", end_time)
     
     year = start_time.year
@@ -70,7 +70,12 @@ def get_stock_data(code, start_time, end_time, use_fdr=False):
     else:
         #print("get_stock_data(): exist no")
         if (use_fdr):
-            stock_data = fdr.DataReader(code, start_time, end_time)
+            ncode = code
+            if (".KS" in code):
+                ncode = code.replace(".KS", "")
+            if (".KQ" in code):
+                ncode = code.replace(".KQ", "")
+            stock_data = fdr.DataReader(ncode, start_time, end_time)
             stock_data.to_json(path, orient = 'split', compression = 'infer', index = 'true')
         else:
             try:
