@@ -54,7 +54,7 @@ def get_stock_name(code):
     return "Unknown"
 
 # cache 사용하여 종목 데이터 가져오기
-def get_stock_data(code, start_time, end_time, use_fdr=False):
+def get_stock_data(code, start_time, end_time, use_fdr=True):
     # 무조건 1년 단위로 자름
     start_time = datetime.datetime(start_time.year, 1, 1, 9, 0, 0)
     end_time = datetime.datetime(start_time.year, 12, 31, 9, 0, 0)
@@ -88,7 +88,7 @@ def get_stock_data(code, start_time, end_time, use_fdr=False):
     return stock_data
 
 # 하반기 종목 데이터 가져오기
-def get_stock_data_second_half(code, start_time, end_time, use_fdr=False):
+def get_stock_data_second_half(code, start_time, end_time, use_fdr=True):
     stock_data = get_stock_data(code, start_time, end_time, use_fdr)
     half_iloc = int(len(stock_data)/2)
     return stock_data[half_iloc:-1]
